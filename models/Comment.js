@@ -1,5 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
-
+const moment = require('moment');
 const ReplySchema = new Schema(
   {
     // set custom id to avoid confusion with parent comment's _id field
@@ -51,8 +51,8 @@ const CommentSchema = new Schema(
   }
 );
 
-PizzaSchema.virtual('commentCount').get(function() {
-  return this.comments.reduce((total, comment) => total + comment.replies.length + 1, 0);
+CommentSchema.virtual('replyCount').get(function() {
+  return this.replies.length;
 });
 const Comment = model('Comment', CommentSchema);
 
